@@ -39,7 +39,8 @@ class Student:
     - RRoot,1.3.2030,Added properties and private attributes
     """
 
-    def __init__(self, first_name: str = '', last_name: str = '', gpa: float = 0.00):
+    def __init__(self, first_name: str = '',
+                 last_name: str = '', gpa: float = 0.00):
         # TODO 1. Change attributes to use the properties
         self.first_name = first_name
         self.last_name = last_name

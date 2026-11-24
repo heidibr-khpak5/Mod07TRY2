@@ -30,8 +30,7 @@ menu_choice = ''
 class Student:
     def __init__(self, first_name: str = "",
                  last_name: str = "",
-                 gpa: int= 0
-    ):
+                 gpa:float = 0.00):
         self.first_name=first_name
         self.last_name=last_name
         self.gpa=gpa
@@ -60,7 +59,7 @@ class FileProcessor:
             for student in list_of_dictionary_data:
                 student_object: Student = Student(first_name=student["FirstName"],
                                                   last_name=student["LastName"],
-                                                  gpa=student[GPA])
+                                                  gpa=student["GPA"])
 
 
                 student_data.append(student_object)
@@ -79,19 +78,18 @@ class FileProcessor:
 
         try:
             # TODO 4. Create a new list to hold json data to use with the json.dump() function.
-            list_of_json_items:list = []
+            list_of_dictionary_data:list = []
             # TODO 5. Convert List of Student objects to json compatible list of dictionary.
-            for each in student_data:
-                student_json:dict = {"FirstName":student.first_name,
-                     "LastName":student.last_name,
-                   "GPA":student.gpa}
-
-
-                list_of_json_items.append(student_json )
+            for student in student_data:
+                student_json:dict\
+                    = {"FirstName":student.first_name,
+                       "LastName":student.last_name,
+                       "GPA":student.gpa}
+                list_of_dictionary_data.append(student_json)
 
             file = open(file_name, "w")
             # TODO 6. Change the first argument to be the list of dictionary data
-            json.dump(list_of_json_items, file)
+            json.dump(list_of_dictionary_data, file)
             file.close()
         except TypeError as e:
             IO.output_error_messages("Please check that the data is a valid JSON format", e)
@@ -180,6 +178,7 @@ class IO:
                 message = " {} {} earned a C with a {:.2f} GPA"
             elif student.gpa >= 1.0:
                 message = " {} {} earned a D with a {:.2f} GPA"
+
             else:
                 message = " {} {}'s {:.2f} GPA was not a passing grade"
 
@@ -213,10 +212,10 @@ class IO:
                 raise ValueError("GPA must be a numeric value.")
 
             # TODO 8. Replace using a dictionary with using a student object
-            student = {"FirstName": student_first_name,
-                       "LastName": student_last_name,
-                       "GPA": float(student_gpa)}
-            student_data.append(student)
+            # student = {"FirstName": student_first_name,
+            #            "LastName": student_last_name,
+            #            "GPA": float(student_gpa)}
+
 
             student = Student(first_name=student_first_name, last_name=student_last_name,
                               gpa = student_gpa)
